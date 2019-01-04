@@ -32,7 +32,7 @@ func _input(event):
 func _ready():
 	camera = self
 	t = get_node("../")
-	target = get_node("../Target")
+	target = get_node("../Raycast Wrap")
 	parent = get_node('../../')
 	raycast = get_node('../RayCast')
 	window_focused = true
@@ -42,6 +42,7 @@ func _physics_process(delta):
 	
 	global_transform.origin = raycast.get_collision_point()
 	look_at(parent.get_transform().origin,Vector3(0,1,0))
+	translate(Vector3(0,0,-8))
 	
 	if is_current():
 		if window_focused:

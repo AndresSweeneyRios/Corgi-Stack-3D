@@ -2,7 +2,7 @@ extends KinematicBody
 
 var hit = false
 
-func _process(delta):
-	if move_and_collide(Vector3(0,0,0)):
+func _physics_process(delta):
+	if test_move(global_transform,Vector3(-1,0,0)) || test_move(global_transform,Vector3(1,0,0)):
 		hit = true
 	pass

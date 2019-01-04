@@ -16,15 +16,15 @@ func _physics_process(delta):
 		var ovelocity = velocity
 		direction = Vector3(0,0,0)
 		
-		if Input.is_action_pressed("ui_left"):
-			direction.x += -get_transform().basis.x.x
-			direction.z += -get_transform().basis.x.z
-			rot.y = 180
+		#if Input.is_action_pressed("ui_left"):
+		#	direction.x += -get_transform().basis.x.x
+		#	direction.z += -get_transform().basis.x.z
+		#	rot.y = 180
 			
-		if Input.is_action_pressed("ui_right"):
-			direction.x += get_transform().basis.x.x
-			direction.z += get_transform().basis.x.z
-			rot.y = 0
+		#if Input.is_action_pressed("ui_right"):
+		#	direction.x += get_transform().basis.x.x
+		#	direction.z += get_transform().basis.x.z
+		#	rot.y = 0
 			
 		if Input.is_action_pressed("ui_up"):
 			direction.x += -get_transform().basis.z.x
@@ -36,17 +36,17 @@ func _physics_process(delta):
 			direction.z += get_transform().basis.z.z
 			rot.y = -90
 			
-		if !Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_down"):
-			rot.y = -125
+		#if !Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_down"):
+		#	rot.y = -125
 			
-		if !Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_down"):
-			rot.y = -45
+		#if !Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_down"):
+		#	rot.y = -45
 			
-		if !Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_up"):
-			rot.y = 125
+		#if !Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_up"):
+		#	rot.y = 125
 			
-		if !Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_up"):
-			rot.y = 45
+		#if !Input.is_action_pressed("ui_left") && Input.is_action_pressed("ui_right") && Input.is_action_pressed("ui_up"):
+		#	rot.y = 45
 		get_node('Animation').rotation_degrees = rot;
 		get_node('CollisionShape').rotation_degrees = rot;
 		

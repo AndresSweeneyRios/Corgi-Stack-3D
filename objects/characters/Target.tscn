@@ -7,14 +7,14 @@
 
 radius = 3.91128
 
-[node name="Camera Wrap" type="Spatial"]
+[node name="Target" type="Spatial"]
 
-[node name="Target" type="Spatial" parent="." index="0"]
+[node name="Raycast Wrap" type="Spatial" parent="." index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60, 60 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="StaticBody" type="StaticBody" parent="Target" index="0"]
+[node name="StaticBody" type="StaticBody" parent="Raycast Wrap" index="0"]
 
 input_ray_pickable = true
 input_capture_on_drag = false
@@ -26,7 +26,7 @@ constant_linear_velocity = Vector3( 0, 0, 0 )
 constant_angular_velocity = Vector3( 0, 0, 0 )
 _sections_unfolded = [ "Collision" ]
 
-[node name="CollisionShape" type="CollisionShape" parent="Target/StaticBody" index="0"]
+[node name="CollisionShape" type="CollisionShape" parent="Raycast Wrap/StaticBody" index="0"]
 
 shape = SubResource( 1 )
 disabled = false
@@ -43,7 +43,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Camera" type="Camera" parent="." index="2"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 120, 120 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 113, 113 )
 keep_aspect = 0
 cull_mask = 1048575
 environment = null

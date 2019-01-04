@@ -21,9 +21,9 @@ animations = [ {
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 6.05474, 12.0973, 0.166504 )
+extents = Vector3( 6.05474, 12.0973, 0.381872 )
 
-[node name="Portal" type="AnimatedSprite3D"]
+[node name="Portal" type="AnimatedSprite3D" index="0"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0 )
 layers = 1
@@ -49,7 +49,7 @@ double_sided = true
 alpha_cut = 0
 frames = SubResource( 1 )
 animation = "default"
-frame = 3
+frame = 1
 playing = true
 _sections_unfolded = [ "Flags", "Geometry" ]
 
@@ -67,12 +67,12 @@ axis_lock_angular_y = false
 axis_lock_angular_z = false
 collision/safe_margin = 0.001
 script = ExtResource( 9 )
-_sections_unfolded = [ "Collision", "collision" ]
+_sections_unfolded = [ "Collision", "Transform", "collision" ]
 
 [node name="PortalBox" type="CollisionShape" parent="Portal" index="0"]
 
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, 0.5 )
 shape = SubResource( 2 )
 disabled = false
+_sections_unfolded = [ "Transform" ]
 
 
