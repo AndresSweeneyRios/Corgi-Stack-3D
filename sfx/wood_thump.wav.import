@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/wood_thump.wav-4135bb0a8f757e046579c9fca214ffa7.sample"
+
+[deps]
+
+source_file="res://sfx/wood_thump.wav"
+dest_files=[ "res://.import/wood_thump.wav-4135bb0a8f757e046579c9fca214ffa7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

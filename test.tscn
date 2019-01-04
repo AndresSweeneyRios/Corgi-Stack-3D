@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://gridmaps/terrain.meshlib" type="MeshLibrary" id=1]
+[ext_resource path="res://objects/characters/corgi.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/scripts/move/corgi_move.gd" type="Script" id=3]
+
+[node name="GridMap" type="GridMap"]
+
+theme = ExtResource( 1 )
+cell_size = Vector3( 16, 16, 16 )
+cell_octant_size = 8
+cell_center_x = true
+cell_center_y = false
+cell_center_z = true
+cell_scale = 1.0
+collision_layer = 1
+collision_mask = 1
+data = {
+"cells": PoolIntArray( 0, 0, 536870913, 1, 0, -1610612735, 65533, 0, 1, 65534, 0, 536870913, 65535, 0, 1, 0, 1, 536870913, 1, 1, -1610612735, 65533, 1, 536870913, 65534, 1, 1, 65535, 1, 536870913, 0, 2, 1, 1, 2, -1610612735, 65533, 2, -1610612735, 65534, 2, 1, 65535, 2, 1, 0, 65534, 1, 1, 65534, 1, 65533, 65534, 536870913, 65534, 65534, 1, 65535, 65534, -1610612735, 0, 65535, 1, 1, 65535, 1, 65533, 65535, 1, 65534, 65535, 1, 65535, 65535, 1 )
+}
+_sections_unfolded = [ "Cell" ]
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Corgi" type="KinematicBody" parent="." index="0" instance=ExtResource( 2 )]
+
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 28, 20 )
+input_ray_pickable = true
+input_capture_on_drag = false
+collision_layer = 1
+collision_mask = 1
+axis_lock_linear_x = false
+axis_lock_linear_y = false
+axis_lock_linear_z = false
+axis_lock_angular_x = false
+axis_lock_angular_y = false
+axis_lock_angular_z = false
+collision/safe_margin = 0.001
+script = ExtResource( 3 )
+_sections_unfolded = [ "Collision" ]
+
+

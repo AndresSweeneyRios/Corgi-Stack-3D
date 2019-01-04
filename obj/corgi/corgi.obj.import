@@ -1,0 +1,17 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/corgi.obj-943a83b367f3d2434e503768c3d61b01.mesh"
+
+[deps]
+
+files=[ "res://.import/corgi.obj-943a83b367f3d2434e503768c3d61b01.mesh" ]
+
+source_file="res://obj/corgi/corgi.obj"
+dest_files=[ "res://.import/corgi.obj-943a83b367f3d2434e503768c3d61b01.mesh", "res://.import/corgi.obj-943a83b367f3d2434e503768c3d61b01.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )

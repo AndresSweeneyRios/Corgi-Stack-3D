@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/lever_green.vox-41ec909f482fd0979bd3e68f70550151.mesh"
+
+[deps]
+
+source_file="res://vox/lever_green.vox"
+dest_files=[ "res://.import/lever_green.vox-41ec909f482fd0979bd3e68f70550151.mesh" ]
+
+[params]
+

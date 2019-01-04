@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/schatzi_run4.vox-ab5fcfa83180118be83d0ff821173f90.mesh"
+
+[deps]
+
+source_file="res://vox/schatzi_run4.vox"
+dest_files=[ "res://.import/schatzi_run4.vox-ab5fcfa83180118be83d0ff821173f90.mesh" ]
+
+[params]
+

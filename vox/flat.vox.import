@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/flat.vox-5941f6ac578dc7ba4fde3f8cd07a13fc.mesh"
+
+[deps]
+
+source_file="res://vox/flat.vox"
+dest_files=[ "res://.import/flat.vox-5941f6ac578dc7ba4fde3f8cd07a13fc.mesh" ]
+
+[params]
+

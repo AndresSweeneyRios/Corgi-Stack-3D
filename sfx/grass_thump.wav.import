@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/grass_thump.wav-fe0accdd75fb4acb183f51c289b09651.sample"
+
+[deps]
+
+source_file="res://sfx/grass_thump.wav"
+dest_files=[ "res://.import/grass_thump.wav-fe0accdd75fb4acb183f51c289b09651.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/bridge.vox-1855e4d621d840b00755a6215d43b2ff.mesh"
+
+[deps]
+
+source_file="res://vox/bridge.vox"
+dest_files=[ "res://.import/bridge.vox-1855e4d621d840b00755a6215d43b2ff.mesh" ]
+
+[params]
+
