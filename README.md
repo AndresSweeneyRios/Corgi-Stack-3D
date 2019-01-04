@@ -1,1 +1,0 @@
-[https://gamejolt.com/games/corgi-stack-3d/371101](https://gamejolt.com/games/corgi-stack-3d/371101)
