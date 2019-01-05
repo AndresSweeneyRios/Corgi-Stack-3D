@@ -40,6 +40,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="Animation" type="Spatial" parent="." index="2"]
 
+editor/display_folded = true
 script = ExtResource( 3 )
 
 [node name="Idle" type="MeshInstance" parent="Animation" index="0"]

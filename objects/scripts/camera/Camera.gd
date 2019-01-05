@@ -57,8 +57,6 @@ func _physics_process(delta):
 			if parent.is_on_wall():
 				parent.rotation_degrees.y += deltamove.x
 			
-			deltamove.y=0
-			
 			t.rotation_degrees.x -= deltamove.y
 			
 			deltamove = Vector2()
