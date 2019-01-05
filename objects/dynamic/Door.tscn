@@ -64,7 +64,7 @@ _sections_unfolded = [ "Geometry", "Transform" ]
 
 transform = Transform( 1, 0, 0, 0, 0.96, 0, 0, 0, 1, 0, 13, 0 )
 frames = SubResource( 1 )
-frame = 7
+frame = 6
 _sections_unfolded = [ "Flags", "Geometry", "Transform" ]
 
 [node name="OmniLight2" type="OmniLight" parent="." index="2"]

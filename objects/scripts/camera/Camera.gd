@@ -45,6 +45,8 @@ func _physics_process(delta):
 	translate(Vector3(0,0,-8))
 	
 	if is_current():
+		get_parent().show()
+		
 		if window_focused:
 			if deltamove.x > pivot_peed:
 				deltamove.x = pivot_peed
@@ -78,4 +80,6 @@ func _physics_process(delta):
 			else:
 				window_focused = true
 				get_viewport().warp_mouse(Vector2(get_viewport().size.x/2,get_viewport().size.y/2))
+		else:
+			get_parent().hide()
 	pass

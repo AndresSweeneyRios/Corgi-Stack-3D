@@ -21,9 +21,9 @@ animations = [ {
 
 [sub_resource type="BoxShape" id=2]
 
-extents = Vector3( 6.05474, 12.0973, 0.381872 )
+extents = Vector3( 5.23284, 11.1888, 0.381872 )
 
-[node name="Portal" type="AnimatedSprite3D" index="0"]
+[node name="Portal" type="AnimatedSprite3D"]
 
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16, 0 )
 layers = 1
@@ -49,7 +49,7 @@ double_sided = true
 alpha_cut = 0
 frames = SubResource( 1 )
 animation = "default"
-frame = 1
+frame = 5
 playing = true
 _sections_unfolded = [ "Flags", "Geometry" ]
 

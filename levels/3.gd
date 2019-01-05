@@ -1,10 +1,13 @@
 extends Node
 
 var chars = []
+
+var portal
 var which = 0
 
 func _ready():
 	chars = [get_node("Corgi"),get_node("Corgi_Long"),get_node("Schatzi")]
+	portal = find_node('PortalBox').get_parent()
 	pass
 
 func _process(delta):
@@ -25,4 +28,7 @@ func _process(delta):
 			which = chars.size()-1
 			
 		chars[which].get_node("Target/Camera").make_current()
+		
+	if portal.hit:
+		get_tree().change_scene("res://gui/title.tscn")
 	pass

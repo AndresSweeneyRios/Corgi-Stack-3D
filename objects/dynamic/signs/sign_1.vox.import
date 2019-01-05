@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/sign_1.vox-a59e2cd8bf1117e724105bd1c690d2de.mesh"
+
+[deps]
+
+source_file="res://objects/dynamic/signs/sign_1.vox"
+dest_files=[ "res://.import/sign_1.vox-a59e2cd8bf1117e724105bd1c690d2de.mesh" ]
+
+[params]
+
