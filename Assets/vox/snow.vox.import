@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/snow.vox-1c8ca4adf825442b82dcd444a00e00c2.mesh"
+
+[deps]
+
+source_file="res://vox/snow.vox"
+dest_files=[ "res://.import/snow.vox-1c8ca4adf825442b82dcd444a00e00c2.mesh" ]
+
+[params]
+

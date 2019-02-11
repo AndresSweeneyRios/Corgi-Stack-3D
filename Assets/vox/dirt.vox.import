@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/dirt.vox-0ba623bfb8916c40ca4cd5b2956de263.mesh"
+
+[deps]
+
+source_file="res://vox/dirt.vox"
+dest_files=[ "res://.import/dirt.vox-0ba623bfb8916c40ca4cd5b2956de263.mesh" ]
+
+[params]
+

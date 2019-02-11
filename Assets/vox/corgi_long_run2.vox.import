@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/corgi_long_run2.vox-2312c8ba980eb829e47c0e77da444415.mesh"
+
+[deps]
+
+source_file="res://vox/corgi_long_run2.vox"
+dest_files=[ "res://.import/corgi_long_run2.vox-2312c8ba980eb829e47c0e77da444415.mesh" ]
+
+[params]
+
