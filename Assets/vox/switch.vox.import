@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/switch.vox-688fb65843299f8f7f5381c984fc4ff2.mesh"
+
+[deps]
+
+source_file="res://vox/switch.vox"
+dest_files=[ "res://.import/switch.vox-688fb65843299f8f7f5381c984fc4ff2.mesh" ]
+
+[params]
+

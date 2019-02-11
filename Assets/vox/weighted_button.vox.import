@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/weighted_button.vox-b76914ccde7d3361e80ba4bd84fe940c.mesh"
+
+[deps]
+
+source_file="res://vox/weighted_button.vox"
+dest_files=[ "res://.import/weighted_button.vox-b76914ccde7d3361e80ba4bd84fe940c.mesh" ]
+
+[params]
+

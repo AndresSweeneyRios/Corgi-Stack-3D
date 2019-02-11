@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/grass.vox-45ce01770f3ee1026e03ea7ba85ee7a0.mesh"
+
+[deps]
+
+source_file="res://vox/grass.vox"
+dest_files=[ "res://.import/grass.vox-45ce01770f3ee1026e03ea7ba85ee7a0.mesh" ]
+
+[params]
+

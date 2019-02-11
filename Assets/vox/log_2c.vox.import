@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/log_2c.vox-d6d21d3caf8547e8478178c38a48cd59.mesh"
+
+[deps]
+
+source_file="res://vox/log_2c.vox"
+dest_files=[ "res://.import/log_2c.vox-d6d21d3caf8547e8478178c38a48cd59.mesh" ]
+
+[params]
+

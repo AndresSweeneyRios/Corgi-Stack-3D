@@ -1,0 +1,13 @@
+[remap]
+
+importer="MagicaVoxel-Importer"
+type="Mesh"
+path="res://.import/corgi_run3.vox-6ae6eb4a083a821a306bd94cc2697b47.mesh"
+
+[deps]
+
+source_file="res://vox/corgi_run3.vox"
+dest_files=[ "res://.import/corgi_run3.vox-6ae6eb4a083a821a306bd94cc2697b47.mesh" ]
+
+[params]
+
