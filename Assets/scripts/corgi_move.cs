@@ -13,12 +13,13 @@ public class corgi_move : MonoBehaviour {
 	public float maxpitch;
 	public float minpitch;
 
-	int layerMask = ~0;
 	RaycastHit hit;
 	Collider collider;
+	Vector3 extents;
+	Vector3 bounds;
 	bool boxcast;
 	float distance = 0.5f;
-	float boxcast_offset = 1f;
+	int layerMask = ~0;
 
 	private void Start() {
 		mesh = transform.GetComponentInChildren<corgi_animate>();
@@ -37,8 +38,9 @@ public class corgi_move : MonoBehaviour {
 			my += Input.GetAxis("Mouse Y");
 		}
 
-		Vector3 bounds = collider.bounds.center;
-		boxcast = Physics.BoxCast(new Vector3(bounds.x, bounds.y+boxcast_offset, bounds.z), collider.bounds.extents*2, -transform.up, out hit, transform.rotation, distance, layerMask);
+		bounds = collider.bounds.center;
+        extents = collider.bounds.extents*2;
+		boxcast = Physics.BoxCast(bounds, new Vector3(extents.x, 0.01f, extents.z), -transform.up, out hit, transform.rotation, distance, layerMask);
 
 		if (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1")) {
 			if (boxcast) rb.AddForce(transform.up * jspeed, ForceMode.VelocityChange);
@@ -64,4 +66,17 @@ public class corgi_move : MonoBehaviour {
 			mesh.transform.rotation = Quaternion.AngleAxis(((Mathf.Atan2(vmove, hmove)*Mathf.Rad2Deg)+90)+transform.rotation.eulerAngles.y, Vector3.up);
 		}
 	}
+
+    void OnDrawGizmos () {
+        if (!Application.isPlaying) return;
+        if (boxcast) {
+            Gizmos.color = Color.blue; 
+            Gizmos.DrawRay(bounds, -transform.up * hit.distance);
+            Gizmos.DrawWireCube(bounds + -transform.up * hit.distance, new Vector3(extents.x,0.01f,extents.z));
+        } else {
+            Gizmos.color = Color.red; 
+            Gizmos.DrawRay(bounds, -transform.up * 0.5f);
+            Gizmos.DrawWireCube(bounds + -transform.up * 0.5f, new Vector3(extents.x,0.01f,extents.z));
+        }
+    }
 }
