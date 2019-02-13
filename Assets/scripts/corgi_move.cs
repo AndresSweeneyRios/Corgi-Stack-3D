@@ -12,58 +12,75 @@ public class corgi_move : MonoBehaviour {
 	public float jspeed;
 	public float maxpitch;
 	public float minpitch;
-
-	RaycastHit hit;
-	Collider collider;
-	Vector3 extents;
-	Vector3 bounds;
+	public bool enabled = false;
+	bool jump = false;
 	bool boxcast;
-	float distance = 0.5f;
-	int layerMask = ~0;
+	Collider collider;
+	Vector3 bounds;
+	Vector3 extents;
+	RaycastHit hit;
+	Camera camera;
 
 	private void Start() {
 		mesh = transform.GetComponentInChildren<corgi_animate>();
 		collider = transform.GetComponentInChildren<Collider>();
+		camera = transform.GetChild(0).GetChild(0).GetComponent<Camera>();
 		Physics.gravity = new Vector3(0, -30F, 0);
 	}
 
-	void FixedUpdate () {
-		float hmove = Input.GetAxisRaw("Horizontal");
-		float vmove = Input.GetAxisRaw("Vertical") * -1; 
-		float mx =  Input.GetAxis("Look X");
-		float my = Input.GetAxis("Look Y");
-
-		if (!Cursor.visible) {
-			mx += Input.GetAxis("Mouse X");
-			my += Input.GetAxis("Mouse Y");
-		}
+	private void Update() {
+		camera.enabled = enabled;
 
 		bounds = collider.bounds.center;
         extents = collider.bounds.extents*2;
-		boxcast = Physics.BoxCast(bounds, new Vector3(extents.x, 0.01f, extents.z), -transform.up, out hit, transform.rotation, distance, layerMask);
 
-		if (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1")) {
-			if (boxcast) rb.AddForce(transform.up * jspeed, ForceMode.VelocityChange);
-		}
+		bounds.y += 0.2f;
+		extents.y = 0.1f;
 
-		Transform cam = camera_target.GetComponent<Transform>();
-		
-		cam.Rotate(new Vector3(0,0,my) * camspeed);
-		transform.Rotate(new Vector3(0,mx,0) * camspeed);
-		
-		Vector3 cam_rot = cam.eulerAngles;
-		if (cam_rot.z > maxpitch) cam.Rotate(new Vector3(0,0,my) * -camspeed);
-		if (cam_rot.z < minpitch) cam.Rotate(new Vector3(0,0,my) * -camspeed);
+		boxcast = Physics.BoxCast(bounds, extents, -transform.up, out hit, transform.GetChild(1).rotation, 0.7f, ~0);
+		if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1")) && boxcast && enabled) rb.AddForce(transform.up * jspeed, ForceMode.VelocityChange);
 
-		Vector3 move = transform.worldToLocalMatrix.inverse * new Vector3(vmove, rb.velocity.y, hmove);
-		move *= speed * Time.deltaTime;
-		rb.velocity = new Vector3(move.x,rb.velocity.y,move.z);
+		if (enabled) rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+		else rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+	}
 
-		if (Mathf.Abs(move.x) + Mathf.Abs(move.z) < 0.1) {
-			mesh.still = true;
-		} else {
-			mesh.still = false;
-			mesh.transform.rotation = Quaternion.AngleAxis(((Mathf.Atan2(vmove, hmove)*Mathf.Rad2Deg)+90)+transform.rotation.eulerAngles.y, Vector3.up);
+	void FixedUpdate () {
+		if (enabled) {
+			float hmove = Input.GetAxisRaw("Horizontal");
+			float vmove = Input.GetAxisRaw("Vertical") * -1; 
+			float mx =  Input.GetAxis("Look X");
+			float my = Input.GetAxis("Look Y");
+
+			if (!Cursor.visible) {
+				mx += Input.GetAxis("Mouse X");
+				my += Input.GetAxis("Mouse Y");
+			}
+
+			Transform cam = camera_target.GetComponent<Transform>();
+			
+			cam.Rotate(new Vector3(0,0,my) * camspeed);
+			transform.Rotate(new Vector3(0,mx,0) * camspeed);
+			
+			Vector3 cam_rot = cam.eulerAngles;
+			if (cam_rot.z > maxpitch) cam.Rotate(new Vector3(0,0,my) * -camspeed);
+			if (cam_rot.z < minpitch) cam.Rotate(new Vector3(0,0,my) * -camspeed);
+
+			Vector3 move = transform.worldToLocalMatrix.inverse * new Vector3(vmove, rb.velocity.y, hmove);
+
+			if (Mathf.Abs(move.x) > 0.999f && Mathf.Abs(move.z) > 0.999f) {
+				move.x *= 0.75f;
+				move.z *= 0.75f;
+			}
+
+			move *= speed * Time.deltaTime;
+			rb.velocity = new Vector3(move.x,rb.velocity.y,move.z);
+
+			if (Mathf.Abs(move.x) + Mathf.Abs(move.z) < 0.1) {
+				mesh.still = true;
+			} else {
+				mesh.still = false;
+				mesh.transform.rotation = Quaternion.AngleAxis(((Mathf.Atan2(vmove, hmove)*Mathf.Rad2Deg)+90)+transform.rotation.eulerAngles.y, Vector3.up);
+			}
 		}
 	}
 
@@ -75,8 +92,8 @@ public class corgi_move : MonoBehaviour {
             Gizmos.DrawWireCube(bounds + -transform.up * hit.distance, new Vector3(extents.x,0.01f,extents.z));
         } else {
             Gizmos.color = Color.red; 
-            Gizmos.DrawRay(bounds, -transform.up * 0.5f);
-            Gizmos.DrawWireCube(bounds + -transform.up * 0.5f, new Vector3(extents.x,0.01f,extents.z));
+            Gizmos.DrawRay(bounds, -transform.up * 0.1f);
+            Gizmos.DrawWireCube(bounds + -transform.up * 0.1f, new Vector3(extents.x,0.01f,extents.z));
         }
     }
 }
