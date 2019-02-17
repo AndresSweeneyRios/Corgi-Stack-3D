@@ -246,9 +246,9 @@ MonoBehaviour:
   rb: {fileID: 646715595967891114}
   camera_target: {fileID: 646715595940638958}
   mesh: {fileID: 646715594722258335}
-  speed: 250
+  speed: 300
   camspeed: 8
-  jspeed: 13
+  jspeed: 17
   maxpitch: 80
   minpitch: 0
   enabled: 1
