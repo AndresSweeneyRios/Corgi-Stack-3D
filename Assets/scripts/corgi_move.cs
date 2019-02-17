@@ -25,7 +25,7 @@ public class corgi_move : MonoBehaviour {
 		mesh = transform.GetComponentInChildren<corgi_animate>();
 		collider = transform.GetComponentInChildren<Collider>();
 		camera = transform.GetChild(0).GetChild(0).GetComponent<Camera>();
-		Physics.gravity = new Vector3(0, -30F, 0);
+		Physics.gravity = new Vector3(0, -50F, 0);
 	}
 
 	private void Update() {
