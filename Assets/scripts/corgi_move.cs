@@ -13,6 +13,7 @@ public class corgi_move : MonoBehaviour {
 	public float maxpitch;
 	public float minpitch;
 	public bool enabled = false;
+	public bool freeze = false;
 	bool jump = false;
 	bool boxcast;
 	Collider collider;
@@ -38,14 +39,15 @@ public class corgi_move : MonoBehaviour {
 		extents.y = 0.1f;
 
 		boxcast = Physics.BoxCast(bounds, extents, -transform.up, out hit, transform.GetChild(1).rotation, 0.7f, ~0);
-		if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1")) && boxcast && enabled) rb.AddForce(transform.up * jspeed, ForceMode.VelocityChange);
+		if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1")) && boxcast && enabled && !freeze) rb.AddForce(transform.up * jspeed, ForceMode.VelocityChange);
 
-		if (enabled) rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+		if (freeze)  rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY |RigidbodyConstraints.FreezePositionZ;
+		else if (enabled) rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 		else rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 	}
 
 	void FixedUpdate () {
-		if (enabled) {
+		if (enabled && !freeze) {
 			float hmove = Input.GetAxisRaw("Horizontal");
 			float vmove = Input.GetAxisRaw("Vertical") * -1; 
 			float mx =  Input.GetAxis("Look X");
