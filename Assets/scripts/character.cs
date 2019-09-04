@@ -12,5 +12,7 @@ public class character : MonoBehaviour {
         if (Input.GetKeyDown("mouse 1") || Input.GetKeyDown("joystick button 5")) index++;
         if (index == transform.childCount) index = 0;
         if (index < 0) index = transform.childCount - 1;
+
+		if(Input.GetMouseButtonDown(2)) Cursor.visible = !Cursor.visible;
     }
 }
