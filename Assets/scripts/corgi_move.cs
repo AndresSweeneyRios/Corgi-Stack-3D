@@ -50,12 +50,12 @@ public class corgi_move : MonoBehaviour {
 		if (enabled && !freeze) {
 			float hmove = Input.GetAxisRaw("Horizontal");
 			float vmove = Input.GetAxisRaw("Vertical") * -1; 
-			float mx =  Input.GetAxis("Look X");
+			float mx = Input.GetAxis("Look X");
 			float my = Input.GetAxis("Look Y");
 
 			if (!Cursor.visible) {
-				mx += Input.GetAxis("Mouse X");
-				my += Input.GetAxis("Mouse Y");
+				mx += Input.GetAxis("Mouse X") / 2;
+				my += Input.GetAxis("Mouse Y") / 2;
 			}
 
 			Transform cam = camera_target.GetComponent<Transform>();
