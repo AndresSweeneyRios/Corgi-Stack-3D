@@ -14,6 +14,7 @@ public class corgi_move : MonoBehaviour {
 	public float minpitch;
 	public bool enabled = false;
 	public bool freeze = false;
+    public bool rotationLock = false;
 	bool jump = false;
 	bool boxcast;
 	Collider collider;
@@ -21,6 +22,12 @@ public class corgi_move : MonoBehaviour {
 	Vector3 extents;
 	RaycastHit hit;
 	Camera camera;
+
+    FixedJoint joint;
+
+    Rigidbody held;
+    RaycastHit touching;
+    Vector3 move;
 
 	private void Start() {
 		mesh = transform.GetComponentInChildren<corgi_animate>();
@@ -33,17 +40,38 @@ public class corgi_move : MonoBehaviour {
 		camera.enabled = enabled;
 
 		bounds = collider.bounds.center;
-        extents = collider.bounds.extents*2;
+        extents = collider.bounds.extents * 2;
 
 		bounds.y += 0.2f;
 		extents.y = 0.1f;
 
-		boxcast = Physics.BoxCast(bounds, extents, -transform.up, out hit, transform.GetChild(1).rotation, 0.7f, ~0);
-		if ((Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1")) && boxcast && enabled && !freeze) rb.AddForce(transform.up * jspeed, ForceMode.VelocityChange);
+		boxcast = Physics.BoxCast(
+            bounds, 
+            extents, 
+            -transform.up, 
+            out hit, 
+            transform.GetChild(1).rotation, 
+            0.7f, 
+            ~0
+        );
 
-		if (freeze)  rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY |RigidbodyConstraints.FreezePositionZ;
-		else if (enabled) rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-		else rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+		if (
+            (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1")) 
+            && boxcast 
+            && enabled 
+            && !freeze
+        ) {
+            jump = true;
+
+            rb.AddForce(
+                transform.up * jspeed, 
+                ForceMode.VelocityChange
+            );
+        }
+
+        rotationLock = enabled && !freeze && Input.GetKey("left shift");
+
+        // transform.GetChild(1).GetComponent<BoxCollider>().material.staticFriction = enabled ? 0f : 4.2f;
 	}
 
 	void FixedUpdate () {
@@ -67,7 +95,7 @@ public class corgi_move : MonoBehaviour {
 			if (cam_rot.z > maxpitch) cam.Rotate(new Vector3(0,0,my) * -camspeed);
 			if (cam_rot.z < minpitch) cam.Rotate(new Vector3(0,0,my) * -camspeed);
 
-			Vector3 move = transform.worldToLocalMatrix.inverse * new Vector3(vmove, rb.velocity.y, hmove);
+			move = transform.worldToLocalMatrix.inverse * new Vector3(vmove, rb.velocity.y, hmove);
 
 			if (Mathf.Abs(move.x) > 0.999f && Mathf.Abs(move.z) > 0.999f) {
 				move.x *= 0.75f;
@@ -75,19 +103,77 @@ public class corgi_move : MonoBehaviour {
 			}
 
 			move *= speed * Time.deltaTime;
-			rb.velocity = new Vector3(move.x,rb.velocity.y,move.z);
+			rb.velocity = new Vector3(
+                move.x, 
+                rb.velocity.y, 
+                move.z
+            );
+
+            Quaternion rot = Quaternion.Euler(0, collider.transform.rotation.eulerAngles.y, 0);
+
+            bool forwardCollision = Physics.Raycast(
+                bounds, 
+                rot * Vector3.left,
+                out touching,
+                1.2f,
+                ~0
+            );
+
+            if (forwardCollision && Input.GetKey("left shift") && held == null) {
+                if (touching.rigidbody == null) return;
+                held = touching.rigidbody;
+                joint = transform.gameObject.AddComponent<FixedJoint>();
+                joint.connectedBody = held;
+                joint.anchor = transform.InverseTransformPoint(touching.point);
+                joint.enableCollision = false;
+                held.mass = 0.1f;
+            }
+            
+            if (!Input.GetKey("left shift") && held != null) {
+                Destroy(joint);
+                held.mass = 5f;
+                held = null;
+            }
 
 			if (Mathf.Abs(move.x) + Mathf.Abs(move.z) < 0.1) {
 				mesh.still = true;
 			} else {
 				mesh.still = false;
-				mesh.transform.rotation = Quaternion.AngleAxis(((Mathf.Atan2(vmove, hmove)*Mathf.Rad2Deg)+90)+transform.rotation.eulerAngles.y, Vector3.up);
+
+				if (!rotationLock || !held) {
+                    mesh.transform.rotation = Quaternion.AngleAxis(
+                          Mathf.Atan2(vmove, hmove) 
+                        * Mathf.Rad2Deg 
+                        + 90 
+                        + transform.rotation.eulerAngles.y, 
+
+                        Vector3.up
+                    );
+                }
 			}
 		}
 	}
 
     void OnDrawGizmos () {
         if (!Application.isPlaying) return;
+
+        Quaternion rot = Quaternion.Euler(0, collider.transform.rotation.eulerAngles.y, 0);
+
+        Gizmos.color = Color.black; 
+        Gizmos.DrawRay(
+            bounds, 
+            rot *
+            Vector3.left *
+            1.2f
+        );
+
+        // Gizmos.color = Color.green; 
+        // Gizmos.DrawRay(
+        //     bounds, 
+        //     new Vector3(0, 0, Mathf.Clamp(move.z, -1f, 1f)) * 
+        //     (extents.z / 2)
+        // );
+
         if (boxcast) {
             Gizmos.color = Color.blue; 
             Gizmos.DrawRay(bounds, -transform.up * hit.distance);
