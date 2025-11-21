@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class corgi_animate : MonoBehaviour {
 	public List<GameObject> children;
-	private int timer = 0;
-	public int speed = 20;
+	private float timer = 0;
+	public float speed = 0.1f;
 	private int index = 1;
 	public bool still = true;
 
@@ -14,9 +14,9 @@ public class corgi_animate : MonoBehaviour {
 
 		if (!still){
 			if (timer < speed) {
-				timer++;
+				timer += Time.deltaTime;
 			} else {
-				timer = 0;
+				timer = timer % speed;
 				children[index].SetActive(false);
 				index++;
 
