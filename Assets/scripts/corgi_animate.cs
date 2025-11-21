@@ -10,7 +10,7 @@ public class corgi_animate : MonoBehaviour {
 	public bool still = true;
 
 	void Update () {
-		if (!transform.parent.GetComponent<corgi_move>().enabled) still = true;
+		if (!transform.parent.GetComponent<corgi_move>().isEnabled) still = true;
 
 		if (!still){
 			if (timer < speed) {

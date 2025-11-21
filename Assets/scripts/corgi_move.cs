@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class corgi_move : MonoBehaviour {
     public Rigidbody rb;
@@ -12,7 +10,7 @@ public class corgi_move : MonoBehaviour {
     public float jspeed;
     public float maxpitch;
     public float minpitch;
-    public bool enabled = false;
+    public bool isEnabled = false;
     public bool freeze = false;
     public bool rotationLock = false;
 
@@ -20,13 +18,12 @@ public class corgi_move : MonoBehaviour {
     private bool wasEnabled = false;
     private Vector3 lastMoveInput = Vector3.zero;
 
-    bool jump = false;
     bool boxcast;
-    Collider collider;
+    Collider characterCollider;
     Vector3 bounds;
     Vector3 extents;
     RaycastHit hit;
-    Camera camera;
+    Camera characterCamera;
 
     FixedJoint joint;
     Rigidbody held;
@@ -35,17 +32,17 @@ public class corgi_move : MonoBehaviour {
 
     private void Start() {
         mesh = transform.GetComponentInChildren<corgi_animate>();
-        collider = transform.GetComponentInChildren<Collider>();
-        camera = transform.GetChild(0).GetChild(0).GetComponent<Camera>();
+        characterCollider = transform.GetComponentInChildren<Collider>();
+        characterCamera = transform.GetChild(0).GetChild(0).GetComponent<Camera>();
         Physics.gravity = new Vector3(0, -50F, 0);
-        wasEnabled = enabled;
+        wasEnabled = isEnabled;
     }
 
     private void Update() {
-        camera.enabled = enabled;
+        characterCamera.enabled = isEnabled;
 
-        bounds = collider.bounds.center;
-        extents = collider.bounds.extents * 2;
+        bounds = characterCollider.bounds.center;
+        extents = characterCollider.bounds.extents * 2;
 
         bounds.y += 0.2f;
         extents.y = 0.1f;
@@ -63,25 +60,24 @@ public class corgi_move : MonoBehaviour {
         if (
             (Input.GetKeyDown("space") || Input.GetKeyDown("joystick button 1"))
             && boxcast
-            && enabled
+            && isEnabled
             && !freeze
         ) {
-            jump = true;
             rb.AddForce(transform.up * jspeed, ForceMode.VelocityChange);
         }
 
-        rotationLock = enabled && !freeze && Input.GetKey("left shift");
+        rotationLock = isEnabled && !freeze && Input.GetKey("left shift");
 
         // Stop movement when disabled or frozen
-        if ((!enabled || freeze) && wasEnabled) {
+        if ((!isEnabled || freeze) && wasEnabled) {
             StopMovement();
         }
 
-        wasEnabled = enabled;
+        wasEnabled = isEnabled;
     }
 
     void FixedUpdate() {
-        if (enabled && !freeze) {
+        if (isEnabled && !freeze) {
             HandleMovement();
         }
 
@@ -147,7 +143,7 @@ public class corgi_move : MonoBehaviour {
     }
 
     private void HandleObjectGrabbing() {
-        Quaternion rot = Quaternion.Euler(0, collider.transform.rotation.eulerAngles.y, 0);
+        Quaternion rot = Quaternion.Euler(0, characterCollider.transform.rotation.eulerAngles.y, 0);
 
         bool forwardCollision = Physics.Raycast(
             bounds,
@@ -216,7 +212,7 @@ public class corgi_move : MonoBehaviour {
     void OnDrawGizmos() {
         if (!Application.isPlaying) return;
 
-        Quaternion rot = Quaternion.Euler(0, collider.transform.rotation.eulerAngles.y, 0);
+        Quaternion rot = Quaternion.Euler(0, characterCollider.transform.rotation.eulerAngles.y, 0);
 
         Gizmos.color = Color.black;
         Gizmos.DrawRay(bounds, rot * Vector3.left * 1.2f);
