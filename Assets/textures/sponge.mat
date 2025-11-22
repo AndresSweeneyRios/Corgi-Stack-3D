@@ -164,7 +164,7 @@ Material:
     - _SrcBlend: 1
     - _TextureScale: 1
     - _Tiling: 1
-    - _TriplanarBlendSharpness: 2.26
+    - _TriplanarBlendSharpness: 1.83
     - _TriplanarScale: 1
     - _UVOffset: 1
     - _UVSec: 0
