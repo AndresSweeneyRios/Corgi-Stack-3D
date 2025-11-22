@@ -2,27 +2,198 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: sponge
-  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: a60f3f133d9d0da4699a75bcb8d44824, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 12484ea0cb8605b4690510c57ad18d72, type: 3}
-        m_Scale: {x: 4, y: 4}
+    - _AlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats: []
+    - _AlbedoTex:
+        m_Texture: {fileID: 2800000, guid: d1e4aeee152e8ed4bb5789db93d09bb9, type: 3}
+        m_Scale: {x: 0.5, y: 0.5}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DecalAlbedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DecalMRAO:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DecalMRAOStencil:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DecalNormal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DiffuseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 0.5, y: 0.5}
+        m_Offset: {x: 0, y: 0}
+    - _MASKMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MRAOTex:
+        m_Texture: {fileID: 2800000, guid: ef636e55b19aec24ebc18e8e385803dd, type: 3}
+        m_Scale: {x: 0.5, y: 0.5}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTex:
+        m_Texture: {fileID: 2800000, guid: 9e514d3768ceb794e8dd34ae2d5abe68, type: 3}
+        m_Scale: {x: 0.5, y: 0.5}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SmoothnessMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TriplanarAO:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TriplanarAlbedo:
+        m_Texture: {fileID: 2800000, guid: d1e4aeee152e8ed4bb5789db93d09bb9, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TriplanarEmission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TriplanarMetallic:
+        m_Texture: {fileID: 2800000, guid: ef636e55b19aec24ebc18e8e385803dd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TriplanarNormal:
+        m_Texture: {fileID: 2800000, guid: 9e514d3768ceb794e8dd34ae2d5abe68, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AOStrength: 1
+    - _AlbedoScale: 1
+    - _BlendSharpness: 16
+    - _BlendSoftness: 0.25
+    - _BumpScale: 1
+    - _Cull: 2
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _GlossMapScale: 1
+    - _Glossiness: 0
+    - _GlossyReflections: 1
+    - _LocalSpace: 0
+    - _Metallic: 0
+    - _MetallicMultiplier: 0
+    - _Mode: 0
+    - _NormalScale: 1
+    - _NormalStrength: 1.685
+    - _OcclusionStrength: 0.64
+    - _Parallax: 0.02
+    - _RoughnessMultiplier: 1
+    - _Smoothness: 0.5
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _TextureScale: 1
+    - _Tiling: 1
+    - _TriplanarBlendSharpness: 2.26
+    - _TriplanarScale: 1
+    - _UVOffset: 1
+    - _UVSec: 0
+    - _UseEmission: 0
+    - _UseLocalSpace: 0
+    - _UseObjectSpaceTriplanar: 1
+    - _ZWrite: 1
     m_Colors:
+    - _AlbedoDefault: {r: 1, g: 1, b: 1, a: 1}
+    - _AlbedoUVRect: {r: 0, g: 0, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _DecalAOUV: {r: 0, g: 0, b: 1, a: 1}
+    - _DecalAlbedoUV: {r: 0, g: 0, b: 1, a: 1}
+    - _DecalEmissionUV: {r: 0, g: 0, b: 1, a: 1}
+    - _DecalMetallicUV: {r: 0, g: 0, b: 1, a: 1}
+    - _DecalNormalUV: {r: 0, g: 0, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionDefault: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionUVRect: {r: 0, g: 0, b: 1, a: 1}
+    - _MRAODefault: {r: 0, g: 1, b: 1, a: 1}
+    - _MRAOUVRect: {r: 0, g: 0, b: 1, a: 1}
+    - _NormalUVRect: {r: 0, g: 0, b: 1, a: 1}
+    - _PositionOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation: {r: 0, g: 0, b: 0, a: 0}
+    - _TriplanarAOUV: {r: 0, g: 0, b: 1, a: 1}
+    - _TriplanarAlbedoUV: {r: 0, g: 0, b: 1, a: 1}
+    - _TriplanarEmissionUV: {r: 0, g: 0, b: 1, a: 1}
+    - _TriplanarMetallicUV: {r: 0, g: 0, b: 1, a: 1}
+    - _TriplanarNormalUV: {r: 0, g: 0, b: 1, a: 1}
+    - _TriplanarScale: {r: 0.25, g: 0.25, b: 0.25, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

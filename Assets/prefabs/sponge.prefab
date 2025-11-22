@@ -29,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1635871798522310618}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: -6, y: 0, z: -9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: 0}
 --- !u!33 &2598808004549937147
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -101,7 +101,7 @@ Rigidbody:
   m_GameObject: {fileID: 1635871798522310618}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 1
   m_AngularDamping: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -152,5 +152,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af58b582fc84eaf42b1b61298681b8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::sponge
-  pushVelocityThreshold: 0.5
-  idleDeceleration: 60

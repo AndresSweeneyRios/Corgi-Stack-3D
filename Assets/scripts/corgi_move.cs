@@ -17,7 +17,7 @@ public class corgi_move : MonoBehaviour {
     private bool wasEnabled = false;
 
     bool boxcast;
-    Collider characterCollider;
+    public Collider characterCollider;
     Vector3 bounds;
     Vector3 size;
 
@@ -28,7 +28,6 @@ public class corgi_move : MonoBehaviour {
 
     private void Start() {
         mesh = transform.GetComponentInChildren<corgi_animate>();
-        characterCollider = transform.GetComponentInChildren<Collider>();
         Physics.gravity = new Vector3(0, -50F, 0);
         wasEnabled = isEnabled;
     }
