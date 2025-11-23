@@ -4,10 +4,10 @@ using System;
 using UnityEngine;
 
 public class CorgiMove : MonoBehaviour {
-    private const float GRAB_MASS = 0.1f;
     private const float MAX_PITCH = 80f;
     private const float MIN_PITCH = 0f;
     private const float GRAB_DISTANCE = 0.5f;
+    private const float ROTATION_SPEED = 0.2f;
     private static readonly Vector3 CAMERA_OFFSET = new(0f, 1f, 0f);
 
     [Header("References")]
@@ -25,13 +25,13 @@ public class CorgiMove : MonoBehaviour {
 
     private FixedJoint? heldJoint = null!;
     private Rigidbody? held = null!;
-    private float heldMass = 0f;
     private float cameraYaw = 0f;
     private float cameraPitch = 0f;
 
     private void Start() {
         rigidBody = GetComponent<Rigidbody>();
         mesh = GetComponent<CorgiAnimate>();
+        rigidBody.maxAngularVelocity = 100f;
     }
 
     public void Tick(Vector2 move, Vector2 look, bool jump, bool grab) {
@@ -68,16 +68,15 @@ public class CorgiMove : MonoBehaviour {
         float yawRad = cameraYaw * Mathf.Deg2Rad;
         float cosYaw = Mathf.Cos(yawRad);
         float sinYaw = Mathf.Sin(yawRad);
-
-        float rotatedX = normalized.x * cosYaw - normalized.y * sinYaw;
-        float rotatedY = normalized.x * sinYaw + normalized.y * cosYaw;
+        float rotatedX = normalized.x * cosYaw + normalized.y * sinYaw;
+        float rotatedY = -normalized.x * sinYaw + normalized.y * cosYaw;
 
         return new Vector2(rotatedX, rotatedY);
     }
 
     private void ApplyMovement(Vector2 moveDirection) {
         if (moveDirection.magnitude > 0f) {
-            rigidBody.linearVelocity = new Vector3(moveDirection.y, rigidBody.linearVelocity.y, moveDirection.x);
+            rigidBody.linearVelocity = new Vector3(-moveDirection.y, rigidBody.linearVelocity.y, moveDirection.x);
         }
         else {
             rigidBody.linearVelocity = new Vector3(0.0f, rigidBody.linearVelocity.y, 0.0f);
@@ -98,26 +97,28 @@ public class CorgiMove : MonoBehaviour {
     }
 
     private void HandleAnimationAndRotation(Vector2 moveDirection) {
-        if (moveDirection.magnitude == 0) {
-            mesh.still = true;
+        mesh.still = moveDirection.magnitude == 0;
 
+        if (held || mesh.still) {
             return;
         }
 
-        mesh.still = false;
+        float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.y) * Mathf.Rad2Deg;
+        float currentAngle = transform.eulerAngles.y;
+        float angleDiff = Mathf.DeltaAngle(currentAngle, targetAngle);
+        float torque = angleDiff * ROTATION_SPEED;
 
-        if (held) {
-            return;
-        }
+        Vector3 finalTorque = Vector3.up * torque;
 
-        float targetAngle = Mathf.Atan2(moveDirection.x, -moveDirection.y) * Mathf.Rad2Deg;
-        Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
-
-        transform.rotation = targetRotation;
+        rigidBody.AddTorque(finalTorque, ForceMode.Impulse);
     }
 
     private void Jump() {
-        rigidBody.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
+        rigidBody.linearVelocity = new Vector3(
+            rigidBody.linearVelocity.x,
+            jumpSpeed,
+            rigidBody.linearVelocity.z
+        );
     }
 
     private bool IsGrounded() {
@@ -191,11 +192,10 @@ public class CorgiMove : MonoBehaviour {
         
         held = hit.Value.rigidbody;
         heldJoint = gameObject.AddComponent<FixedJoint>();
-        heldJoint.connectedBody = held;
-        heldJoint.anchor = transform.InverseTransformPoint(hit.Value.point);
+        heldJoint.enablePreprocessing = false;
         heldJoint.enableCollision = false;
-        heldMass = held.mass;
-        held.mass = GRAB_MASS;
+        heldJoint.connectedBody = held;
+        heldJoint.anchor = held.transform.InverseTransformPoint(hit.Value.point);
     }
 
     private void ReleaseHeldObject() {
@@ -205,7 +205,6 @@ public class CorgiMove : MonoBehaviour {
         }
 
         if (held) {
-            held.mass = heldMass;
             held = null;
         }
     }
