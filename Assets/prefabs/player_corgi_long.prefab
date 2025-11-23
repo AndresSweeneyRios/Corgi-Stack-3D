@@ -69,7 +69,7 @@ MonoBehaviour:
   mesh: {fileID: 6714861673716009461}
   characterCollider: {fileID: 8068905866432697687}
   speed: 250
-  jumpSpeed: 17
+  jumpSpeed: 15
 --- !u!136 &8068905866432697687
 CapsuleCollider:
   m_ObjectHideFlags: 0

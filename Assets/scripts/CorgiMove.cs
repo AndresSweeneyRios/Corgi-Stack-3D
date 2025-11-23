@@ -7,7 +7,7 @@ public class CorgiMove : MonoBehaviour {
     private const float MAX_PITCH = 80f;
     private const float MIN_PITCH = 0f;
     private const float GRAB_DISTANCE = 0.5f;
-    private const float ROTATION_SPEED = 0.2f;
+    private const float ROTATION_EPSILON = 0.5f;
     private static readonly Vector3 CAMERA_OFFSET = new(0f, 1f, 0f);
 
     [Header("References")]
@@ -31,7 +31,7 @@ public class CorgiMove : MonoBehaviour {
     private void Start() {
         rigidBody = GetComponent<Rigidbody>();
         mesh = GetComponent<CorgiAnimate>();
-        rigidBody.maxAngularVelocity = 100f;
+        rigidBody.maxAngularVelocity = 15f;
     }
 
     public void Tick(Vector2 move, Vector2 look, bool jump, bool grab) {
@@ -97,28 +97,44 @@ public class CorgiMove : MonoBehaviour {
     }
 
     private void HandleAnimationAndRotation(Vector2 moveDirection) {
-        mesh.still = moveDirection.magnitude == 0;
+        mesh.still = moveDirection.sqrMagnitude < Mathf.Epsilon;
 
         if (held || mesh.still) {
             return;
         }
 
         float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.y) * Mathf.Rad2Deg;
-        float currentAngle = transform.eulerAngles.y;
-        float angleDiff = Mathf.DeltaAngle(currentAngle, targetAngle);
-        float torque = angleDiff * ROTATION_SPEED;
 
-        Vector3 finalTorque = Vector3.up * torque;
+        transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
 
-        rigidBody.AddTorque(finalTorque, ForceMode.Impulse);
+        //float currentAngle = transform.eulerAngles.y;
+        //float angleDiffDeg = Mathf.DeltaAngle(currentAngle, targetAngle);
+
+        //if (Mathf.Abs(angleDiffDeg) <= ROTATION_EPSILON) {
+        //    Vector3 settledVelocity = rigidBody.angularVelocity;
+        //    settledVelocity.y = 0f;
+        //    rigidBody.angularVelocity = settledVelocity;
+        //    return;
+        //}
+
+        //float angleDiffRad = angleDiffDeg * Mathf.Deg2Rad;
+        //float stepDuration = Time.fixedDeltaTime > Mathf.Epsilon ? Time.fixedDeltaTime : Time.deltaTime;
+        //float desiredAngularVelocity = angleDiffRad / stepDuration;
+        //float clampedAngularVelocity = Mathf.Clamp(desiredAngularVelocity, -rigidBody.maxAngularVelocity, rigidBody.maxAngularVelocity);
+
+        //Vector3 newAngularVelocity = rigidBody.angularVelocity;
+        //newAngularVelocity.y = clampedAngularVelocity;
+        //rigidBody.angularVelocity = newAngularVelocity;
     }
 
     private void Jump() {
-        rigidBody.linearVelocity = new Vector3(
-            rigidBody.linearVelocity.x,
-            jumpSpeed,
-            rigidBody.linearVelocity.z
-        );
+        //rigidBody.linearVelocity = new Vector3(
+        //    rigidBody.linearVelocity.x,
+        //    jumpSpeed,
+        //    rigidBody.linearVelocity.z
+        //);
+
+        rigidBody.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
     }
 
     private bool IsGrounded() {
