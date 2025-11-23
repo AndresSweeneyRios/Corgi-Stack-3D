@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4196658526430926637}
   - component: {fileID: 4982452280942945651}
   - component: {fileID: 6750459000410319061}
-  - component: {fileID: 9045847316754535352}
   m_Layer: 2
   m_Name: sponge
   m_TagString: Untagged
@@ -118,7 +117,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!65 &6750459000410319061
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -126,7 +125,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1635871798522310618}
-  m_Material: {fileID: 13400000, guid: 59cc263571c3e2a4f8d7bb46a6869bf3, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -140,15 +139,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 2.9999995, z: 2.9999995}
   m_Center: {x: -1.5, y: 1.4999998, z: 0.49999994}
---- !u!114 &9045847316754535352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635871798522310618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af58b582fc84eaf42b1b61298681b8fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::sponge

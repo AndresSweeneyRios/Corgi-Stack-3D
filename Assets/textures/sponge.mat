@@ -147,7 +147,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.332
     - _GlossyReflections: 1
     - _LocalSpace: 0
     - _Metallic: 0
@@ -155,7 +155,7 @@ Material:
     - _Mode: 0
     - _NormalScale: 1
     - _NormalStrength: 1.685
-    - _OcclusionStrength: 0.64
+    - _OcclusionStrength: 0.322
     - _Parallax: 0.02
     - _RoughnessMultiplier: 1
     - _Smoothness: 0.5
@@ -194,6 +194,6 @@ Material:
     - _TriplanarEmissionUV: {r: 0, g: 0, b: 1, a: 1}
     - _TriplanarMetallicUV: {r: 0, g: 0, b: 1, a: 1}
     - _TriplanarNormalUV: {r: 0, g: 0, b: 1, a: 1}
-    - _TriplanarScale: {r: 0.25, g: 0.25, b: 0.25, a: 0}
+    - _TriplanarScale: {r: 0.3, g: 0.3, b: 0.3, a: 0.3}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
