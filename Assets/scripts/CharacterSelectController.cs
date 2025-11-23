@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterSelectController : MonoBehaviour {
-    private const float CAMERA_Y_OFFSET = 1.0f;
     public int index = 0;
 
     public camera_target camera_target = null!;
@@ -29,9 +28,6 @@ public class CharacterSelectController : MonoBehaviour {
 
         if (index == characters.Count) index = 0;
         if (index < 0) index = characters.Count - 1;
-
-        camera_target.transform.SetParent(characters[index].transform);
-        camera_target.transform.SetLocalPositionAndRotation(new(0.0f, CAMERA_Y_OFFSET, 0.0f), Quaternion.identity);
     }
 
     void FixedUpdate() {

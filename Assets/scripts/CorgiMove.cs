@@ -8,6 +8,7 @@ public class CorgiMove : MonoBehaviour {
     private const float MAX_PITCH = 80f;
     private const float MIN_PITCH = 0f;
     private const float GRAB_DISTANCE = 0.5f;
+    private static readonly Vector3 CAMERA_OFFSET = new(0f, 1f, 0f);
 
     [Header("References")]
     public CorgiAnimate mesh = null!;
@@ -21,17 +22,16 @@ public class CorgiMove : MonoBehaviour {
     public Rigidbody rigidBody = null!;
     [NonSerialized]
     public GameObject cameraTarget = null!;
-    [NonSerialized]
-    public float cameraSpeed = 8;
 
     private FixedJoint? heldJoint = null!;
     private Rigidbody? held = null!;
     private float heldMass = 0f;
+    private float cameraYaw = 0f;
+    private float cameraPitch = 0f;
 
     private void Start() {
         rigidBody = GetComponent<Rigidbody>();
-        mesh = transform.GetComponentInChildren<CorgiAnimate>();
-        Physics.gravity = new Vector3(0, -50F, 0);
+        mesh = GetComponent<CorgiAnimate>();
     }
 
     public void Tick(Vector2 move, Vector2 look, bool jump, bool grab) {
@@ -39,42 +39,49 @@ public class CorgiMove : MonoBehaviour {
             Jump();
         }
 
+        Vector2 moveDirection = CalculateMovementDirection(move);
+
         UpdateCamera(look);
-        ApplyMovement(move);
-        HandleAnimationAndRotation(move);
+        HandleAnimationAndRotation(moveDirection);
+        ApplyMovement(moveDirection);
         HandleGrab(grab);
     }
 
     private void UpdateCamera(Vector2 lookInput) {
-        Transform cam = cameraTarget.GetComponent<Transform>();
-        cam.Rotate(new Vector3(0, 0, lookInput.y) * cameraSpeed);
-        transform.Rotate(new Vector3(0, lookInput.x, 0) * cameraSpeed);
+        cameraYaw += lookInput.x;
+        cameraPitch += lookInput.y;
 
-        Vector3 cam_rot = cam.eulerAngles;
-        if (cam_rot.z > MAX_PITCH) cam.Rotate(new Vector3(0, 0, lookInput.y) * -cameraSpeed);
-        if (cam_rot.z < MIN_PITCH) cam.Rotate(new Vector3(0, 0, lookInput.y) * -cameraSpeed);
+        if (cameraYaw < 0) cameraYaw += 360;
+        if (cameraYaw >= 360) cameraYaw -= 360;
+
+        cameraPitch = Mathf.Clamp(cameraPitch, MIN_PITCH, MAX_PITCH);
+
+        cameraTarget.transform.SetPositionAndRotation(
+            transform.position + CAMERA_OFFSET, 
+            Quaternion.Euler(0f, cameraYaw, cameraPitch)
+        );
     }
 
-    private void ApplyMovement(Vector2 input) {
-        Vector3 move = CalculateMovementVector(input);
+    private Vector2 CalculateMovementDirection(Vector2 input) {
+        Vector2 normalized = speed * Time.deltaTime * input.normalized;
 
-        if (Mathf.Abs(input.x) > 0.01f || Mathf.Abs(input.y) > 0.01f) {
-            rigidBody.linearVelocity = new Vector3(move.x, rigidBody.linearVelocity.y, move.z);
-        } else {
+        float yawRad = cameraYaw * Mathf.Deg2Rad;
+        float cosYaw = Mathf.Cos(yawRad);
+        float sinYaw = Mathf.Sin(yawRad);
+
+        float rotatedX = normalized.x * cosYaw - normalized.y * sinYaw;
+        float rotatedY = normalized.x * sinYaw + normalized.y * cosYaw;
+
+        return new Vector2(rotatedX, rotatedY);
+    }
+
+    private void ApplyMovement(Vector2 moveDirection) {
+        if (moveDirection.magnitude > 0f) {
+            rigidBody.linearVelocity = new Vector3(moveDirection.y, rigidBody.linearVelocity.y, moveDirection.x);
+        }
+        else {
             rigidBody.linearVelocity = new Vector3(0.0f, rigidBody.linearVelocity.y, 0.0f);
         }
-    }
-
-    private Vector3 CalculateMovementVector(Vector2 input) {
-        Vector3 move = transform.worldToLocalMatrix.inverse * new Vector3(input.y, rigidBody.linearVelocity.y, input.x);
-
-        if (Mathf.Abs(move.x) > 0.999f && Mathf.Abs(move.z) > 0.999f) {
-            move.x *= 0.75f;
-            move.z *= 0.75f;
-        }
-
-        move *= speed * Time.deltaTime;
-        return move;
     }
 
     public void StopMovement() {
@@ -90,6 +97,25 @@ public class CorgiMove : MonoBehaviour {
         }
     }
 
+    private void HandleAnimationAndRotation(Vector2 moveDirection) {
+        if (moveDirection.magnitude == 0) {
+            mesh.still = true;
+
+            return;
+        }
+
+        mesh.still = false;
+
+        if (held) {
+            return;
+        }
+
+        float targetAngle = Mathf.Atan2(moveDirection.x, -moveDirection.y) * Mathf.Rad2Deg;
+        Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
+
+        transform.rotation = targetRotation;
+    }
+
     private void Jump() {
         rigidBody.AddForce(transform.up * jumpSpeed, ForceMode.VelocityChange);
     }
@@ -102,7 +128,7 @@ public class CorgiMove : MonoBehaviour {
             center,
             size * 0.5f,
             -transform.up,
-            mesh.transform.rotation,
+            transform.rotation,
             0.3f,
             -1
         );
@@ -121,7 +147,7 @@ public class CorgiMove : MonoBehaviour {
 
         float originOffset = size.z / 2f;
 
-        Vector3 direction = (Quaternion.Euler(0f, mesh.transform.eulerAngles.y, 0f) * Vector3.left).normalized;
+        Vector3 direction = (Quaternion.Euler(0f, transform.eulerAngles.y, 0f) * Vector3.left).normalized;
         Vector3 origin = direction * originOffset + center;
 
         GrabRay grabRay = new();
@@ -182,27 +208,6 @@ public class CorgiMove : MonoBehaviour {
             held.mass = heldMass;
             held = null;
         }
-    }
-
-    private void HandleAnimationAndRotation(Vector2 moveInput) {
-        Vector3 move = CalculateMovementVector(moveInput);
-
-        if (move.magnitude < 0.1) {
-            mesh.still = true;
-
-            return;
-        }
-
-        mesh.still = false;
-
-        if (held) {
-            return;
-        }
-
-        mesh.transform.rotation = Quaternion.AngleAxis(
-            Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg + 90 + transform.rotation.eulerAngles.y,
-            Vector3.up
-        );
     }
 
     void OnDrawGizmos() {

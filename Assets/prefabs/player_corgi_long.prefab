@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6714861673716009460}
   - component: {fileID: 6714861673716009461}
+  - component: {fileID: 1855015310166887156}
   - component: {fileID: 8068905866432697687}
   - component: {fileID: 6283643419206196767}
+  - component: {fileID: 979958438227159344}
   m_Layer: 2
   m_Name: meshes
   m_TagString: Untagged
@@ -52,6 +54,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.1
+--- !u!114 &1855015310166887156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6714861673716009467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1afb1fb7a889cd4289922119c57e021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 6714861673716009461}
+  characterCollider: {fileID: 8068905866432697687}
+  speed: 250
+  jumpSpeed: 17
 --- !u!136 &8068905866432697687
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -96,6 +114,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.86, y: 0.1, z: 0.63}
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!54 &979958438227159344
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6714861673716009467}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 0
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 3
 --- !u!1 &6714861675159577291
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,8 +150,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6714861675159577284}
-  - component: {fileID: 6714861675159577285}
-  - component: {fileID: 6714861675159577280}
   m_Layer: 2
   m_Name: player_corgi_long
   m_TagString: Untagged
@@ -130,49 +173,6 @@ Transform:
   - {fileID: 6714861673716009460}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6714861675159577285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714861675159577291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1afb1fb7a889cd4289922119c57e021, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mesh: {fileID: 6714861673716009461}
-  characterCollider: {fileID: 8068905866432697687}
-  speed: 250
-  jumpSpeed: 17
---- !u!54 &6714861675159577280
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6714861675159577291}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 3
 --- !u!1001 &146118801334984809
 PrefabInstance:
   m_ObjectHideFlags: 0
